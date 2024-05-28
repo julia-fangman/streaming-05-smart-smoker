@@ -1,6 +1,6 @@
 # streaming-05-smart-smoker 
-## Julia Fangman
-## May 28, 2024
+## Julia Fangman    May 28, 2024
+
 
 
 ### The Problem / Challenge To Solve
