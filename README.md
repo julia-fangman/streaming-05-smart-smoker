@@ -57,6 +57,7 @@ Here's how the code works:
 
 6. Main Block: Finally, in the main block, the script offers to open the RabbitMQ Admin site and then calls the main_work() function to perform the necessary tasks.
 
+![working producer image](IMG_9803.png) 
 
 ### Required Approach
 Use your Module 4 projects (Version 2 and Version 3) as examples.
