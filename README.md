@@ -59,6 +59,8 @@ Here's how the code works:
 
 ![working producer image](IMG_9803.png) 
 
+![RabbitMQ image ](IMG_9804.png) 
+
 ### Required Approach
 Use your Module 4 projects (Version 2 and Version 3) as examples.
 
