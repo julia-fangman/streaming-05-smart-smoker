@@ -1,4 +1,6 @@
-# streaming-05-smart-smoker - Julia Fangman - May 28, 2024
+# streaming-05-smart-smoker 
+## Julia Fangman
+## May 28, 2024
 
 
 ### The Problem / Challenge To Solve
@@ -17,46 +19,47 @@ pika installed in your active environment
 RabbitMQ Admin
 See http://localhost:15672/Links to an external site.
 
+### Before you Begin: 
+1. Fork this starter repo into your GitHub.
+2. Clone your repo down to your machine.
+3. View / Command Palette - then Python: Select Interpreter
+4. Select your conda environment.
+5. Make sure to import pike or copy the file from a previous module
+
 ### Task 1. Create a Place to Work
-In GitHub, create a new repo for your project - name it streaming-05-smart-smoker.
-Add a README.md during the creation process. (If not, you can always add it later.)
-Clone your repo down to your machine. 
-In VS Code, add a .gitignore (use one from an earlier module), start working on the README.md. Create it if you didn't earlier.
-Add the csv data file to your repo. 
-Create a file for your bbq producer.
+1. In GitHub, create a new repo for your project - name it streaming-05-smart-smoker.
+2. Add a README.md during the creation process. (If not, you can always add it later.)
+3. Clone your repo down to your machine. 
+4. In VS Code, add a .gitignore (use one from an earlier module), start working on the README.md. Create it if you didn't earlier.
+5. Add the csv data file to your repo. 
+6. Create a file for your bbq producer.
 
 
-### Task 2. Design and Implement Your Producer
-Implement your bbq producer. More detailed help provided in links below. 
-Use the logic, approach, and structure from Module 4, version 2 and version 3.
-These provide a current and solid foundation for streaming analytics - modifying them to serve your purpose IS part of the assignment.
-Do not start from scratch - do not search for code - do not use a notebook.
-Use comments in the code and repo to explain your work. 
-Use docstring comments and add your name and date to your README and your code files. 
-Explain your project in the README. Include prerequisites and how to run your code. 
-Document your project works - display screenshots of your console and maybe the RabbitMQ console. 
-If you only have a producer, you won't have a consumer showing messages yet, so you'll need to be creative. We'll build the consumers next.
+### Task 2. Design and Implement Your Producer 
+Here's how the code works:
+
+1. Imports: The script imports necessary libraries such as csv, pika (RabbitMQ client library), sys, webbrowser, and traceback.
+
+2. Logger Setup: The script initializes logging using a custom function setup_logger from util_logger module. This helps in logging errors and other information for debugging purposes.
+
+3. RabbitMQ Admin Site: The function offer_rabbitmq_admin_site() prompts the user to open the RabbitMQ Admin website. If the user chooses to do so, it opens the web browser to the RabbitMQ Admin site.
+
+4. Main Work: The main_work() function is the core of the script. It performs the following tasks:
+- Establishes a connection to the RabbitMQ server running on localhost.
+- Deletes any existing queues named "01-smoker", "02-food-A", and "02-food-B" and then declares new queues with these names.
+- Processes a CSV file containing smoker temperature data.
+- For each row in the CSV file, it extracts the timestamp, smoker temperature, food A temperature, and food B temperature.
+- If the smoker temperature is available (not empty), it converts it to a float and sends a message to the "01-smoker" queue.
+- Similarly, if food A or food B temperatures are available, it converts them to float and sends messages to the respective queues.
+- If any errors occur during these operations, they are caught and logged with detailed traceback information.
+  
+5. Send Message: The send_message() function is responsible for publishing a message to the specified RabbitMQ queue. It takes parameters channel, queue_name, and message, where channel is the communication channel to RabbitMQ, queue_name is the name of the queue to publish the message to, and message is the content of the message to be sent.
+
+6. Main Block: Finally, in the main block, the script offers to open the RabbitMQ Admin site and then calls the main_work() function to perform the necessary tasks.
 
 
 ### Required Approach
 Use your Module 4 projects (Version 2 and Version 3) as examples.
-Remember: No prior coding experience is required to take this course. Rely heavily on the working examples from earlier modules. 
-The more similar your code looks to the examples - the more credit earned.
-Vastly different approaches can be expected to earn less credit not more.
-This project should clearly build on skills and code we've already mastered. If not, let me know and more help will be provided. 
-The primary difference should be going from 1 to 3 queue_names and from 1 to 3 callbacks. 
-Part of the challenge is to implement analytics using the tools and approach provided (don't significantly refactor the codebase during your first week of work!) 
-AFTER earning credit for the assignment, THEN create and share additional custom projects. 
- 
-
-### Some Other Points - Why? Professional Practice
-At work, you'll be expected to contribute meaningfully and solve a variety of issues on your own.
-You'll also be part of a team. We all need to balance working on our own, and maintaining productivity by asking for help to get past obstacles.
-The goal is to be ready to be onboarded effectively into an existing team, with pre-established ways of doing things.
-At this point in your career, don't get too attached to any preferences.
-Many things will be set by your team lead.
-On a team, you'll likely autoformat your code on commit (have you read about Black?) and use various automatic static analysis tools and linters like Prospector and flake8. Commits may need to pass unit tests before you can push. 
-Focus on being a great team player, able to join a team with little disruption, follow your team's conventions, and begin contributing productively. 
 
 ### Guided Producer Design 
 If this is the main program being executed (and you're not importing it for its functions),
