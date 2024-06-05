@@ -94,5 +94,6 @@ Visible Smoker Alert with timestamp
 
 Visible Food A stall with timestamp
 
+![Food A stall](IMG_0178.png)
 
 Visible Food B stall with timestamp
