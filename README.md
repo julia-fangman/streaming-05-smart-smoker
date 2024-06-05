@@ -2,9 +2,8 @@
 ## Julia Fangman    May 28, 2024
 
 
-
 ### The Problem / Challenge To Solve
-We want to stream information from a smart smoker. Read one value every half minute. (sleep_secs = 30)
+We want to stream information from a smart smoker. 
 
 smoker-temps.csv has 4 columns:
 
@@ -12,6 +11,23 @@ smoker-temps.csv has 4 columns:
 [1] Channel1 = Smoker Temp --> send to message queue "01-smoker"
 [2] Channel2 = Food A Temp --> send to message queue "02-food-A"
 [3] Channel3 = Food B Temp --> send to message queue "03-food-B"
+
+We want know if:
+
+The smoker temperature decreases by more than 15 degrees F in 2.5 minutes (smoker alert!)
+Any food temperature changes less than 1 degree F in 10 minutes (food stall!)
+Time Windows
+
+Smoker time window is 2.5 minutes
+Food time window is 10 minutes
+Deque Max Length
+
+At one reading every 1/2 minute, the smoker deque max length is 5 (2.5 min * 1 reading/0.5 min)
+At one reading every 1/2 minute, the food deque max length is 20 (10 min * 1 reading/0.5 min) 
+Condition To monitor
+
+If smoker temp decreases by 15 F or more in 2.5 min (or 5 readings)  --> smoker alert!
+If food temp change in temp is 1 F or less in 10 min (or 20 readings)  --> food stall alert!
 
 ##### Requirements
 RabbitMQ server running
@@ -61,24 +77,21 @@ Here's how the code works:
 
 ![RabbitMQ image ](IMG_9804.png) 
 
-### Required Approach
-Use your Module 4 projects (Version 2 and Version 3) as examples.
+### Requirements:
+In your callback function, make sure you generate alerts - there will be a smoker alert and both Food A and Food B will stall. 
 
-### Guided Producer Design 
-If this is the main program being executed (and you're not importing it for its functions),
-We should call a function to ask the user if they want to see the RabbitMQ admin webpage.
-We should call a function to begin the main work of the program.
-As part of the main work, we should
-Get a connection to RabbitMQ, and a channel, delete the 3 existing queues (we'll likely run this multiple times), and then declare them anew. 
-Open the csv file for reading (with appropriate line endings in case of Windows) and create a csv reader.
-For data_row in reader:
-[0] first column is the timestamp - we'll include this with each of the 3 messages below
-[1] Channel1 = Smoker Temp --> send to message queue "01-smoker"
-[2] Channe2 = Food A Temp --> send to message queue "02-food-A"
-[3] Channe3 = Food B Temp --> send to message queue "02-food-B"
-Send a tuple of (timestamp, smoker temp) to the first queue
-Send a tuple of (timestamp, food A temp) to the second queue
-Send a tuple of (timestamp, food B temp) to the third queue 
-Create a binary message from our tuples before using the channel to publish each of the 3 messages.
-Messages are strings, so use float() to get a numeric value where needed
- Remember to use with to read the file, or close it when done.
+Your README.md screenshots must show 4 concurrent processes:
+
+Producer (getting the temperature readings)
+Smoker monitor
+Food A monitor
+Food B monitor
+In addition, you must show at least 3 significant events.
+
+
+
+Run each terminal long enough that you can show the significant events in your screenshots:
+
+Visible Smoker Alert with timestamp
+Visible Food A stall with timestamp
+Visible Food B stall with timestamp
