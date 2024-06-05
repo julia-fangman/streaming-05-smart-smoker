@@ -51,7 +51,7 @@ This producer script is engineered to read temperature data from the smoker temp
 
 ![RabbitMQ image ](IMG_9804.png) 
 
-### Task 3 Implementing the Consumer:
+### Task 3. Implementing the Consumer:
 The consumer script listens to RabbitMQ queues for temperature data from a BBQ smoker and food items, processes the data to detect temperature anomalies, and logs alerts. It uses deques to efficiently store and manage recent temperature readings and checks for significant temperature drops in the smoker or stalls in the food temperatures. The script includes robust error handling to ensure reliable operation and provides real-time monitoring and alerting for temperature issues.
 
 
