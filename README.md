@@ -82,6 +82,9 @@ In your callback function, make sure you generate alerts - there will be a smoke
 
 Your README.md screenshots must show 4 concurrent processes:
 
+
+![4 Concurrent Processes] (IMG_0177.png) 
+
 Producer (getting the temperature readings)
 Smoker monitor
 Food A monitor
