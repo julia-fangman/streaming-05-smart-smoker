@@ -22,7 +22,7 @@ Condition To monitor
 If smoker temp decreases by 15 F or more in 2.5 min (or 5 readings)  --> smoker alert!
 If food temp change in temp is 1 F or less in 10 min (or 20 readings)  --> food stall alert!
 
-##### Requirements
+### Requirements
 RabbitMQ server running
 pika installed in your active environment
 RabbitMQ Admin
