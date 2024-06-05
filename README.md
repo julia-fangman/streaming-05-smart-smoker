@@ -91,7 +91,7 @@ Run each terminal long enough that you can show the significant events in your s
 
 Visible Smoker Alert with timestamp
 
-![Smoker Alert](IMG_0180.png)
+![Smoker Alert](IMG_0179.png)
 
 Visible Food A stall with timestamp
 
@@ -99,4 +99,4 @@ Visible Food A stall with timestamp
 
 Visible Food B stall with timestamp
 
-![Food B stall](IMG_0179.png)
+![Food B stall](IMG_0180.png)
