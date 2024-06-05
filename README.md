@@ -3,14 +3,7 @@
 
 
 ### The Problem / Challenge To Solve
-We want to stream information from a smart smoker. 
-
-smoker-temps.csv has 4 columns:
-
-[0] Time = Date-time stamp for the sensor reading
-[1] Channel1 = Smoker Temp --> send to message queue "01-smoker"
-[2] Channel2 = Food A Temp --> send to message queue "02-food-A"
-[3] Channel3 = Food B Temp --> send to message queue "03-food-B"
+This project implements a temperature monitoring system for a BBQ smoker and food items. The system consists of a producer script that reads temperature data from a CSV file and sends it to RabbitMQ queues, and a consumer script that processes the data, detects temperature anomalies, and logs alerts.
 
 We want know if:
 
@@ -51,31 +44,16 @@ See http://localhost:15672/Links to an external site.
 6. Create a file for your bbq producer.
 
 
-### Task 2. Design and Implement Your Producer 
-Here's how the code works:
-
-1. Imports: The script imports necessary libraries such as csv, pika (RabbitMQ client library), sys, webbrowser, and traceback.
-
-2. Logger Setup: The script initializes logging using a custom function setup_logger from util_logger module. This helps in logging errors and other information for debugging purposes.
-
-3. RabbitMQ Admin Site: The function offer_rabbitmq_admin_site() prompts the user to open the RabbitMQ Admin website. If the user chooses to do so, it opens the web browser to the RabbitMQ Admin site.
-
-4. Main Work: The main_work() function is the core of the script. It performs the following tasks:
-- Establishes a connection to the RabbitMQ server running on localhost.
-- Deletes any existing queues named "01-smoker", "02-food-A", and "02-food-B" and then declares new queues with these names.
-- Processes a CSV file containing smoker temperature data.
-- For each row in the CSV file, it extracts the timestamp, smoker temperature, food A temperature, and food B temperature.
-- If the smoker temperature is available (not empty), it converts it to a float and sends a message to the "01-smoker" queue.
-- Similarly, if food A or food B temperatures are available, it converts them to float and sends messages to the respective queues.
-- If any errors occur during these operations, they are caught and logged with detailed traceback information.
-  
-5. Send Message: The send_message() function is responsible for publishing a message to the specified RabbitMQ queue. It takes parameters channel, queue_name, and message, where channel is the communication channel to RabbitMQ, queue_name is the name of the queue to publish the message to, and message is the content of the message to be sent.
-
-6. Main Block: Finally, in the main block, the script offers to open the RabbitMQ Admin site and then calls the main_work() function to perform the necessary tasks.
+### Task 2. Implementing the Producer 
+This producer script is engineered to read temperature data from the smoker temps CSV file and dispatch this data to RabbitMQ. It begins by setting up logging via the setup_logger utility to ensure comprehensive tracking of events and errors throughout its execution. The script offers the option to open the RabbitMQ Admin website for real-time queue monitoring. In its main function, it establishes a connection to RabbitMQ, clears existing queues, and re-declares them. It then processes the CSV file, reading temperature data for the smoker and two types of food, and sends this data as messages to the corresponding RabbitMQ queues. 
 
 ![working producer image](IMG_9803.png) 
 
 ![RabbitMQ image ](IMG_9804.png) 
+
+### Implementing the Consumer:
+The consumer script listens to RabbitMQ queues for temperature data from a BBQ smoker and food items, processes the data to detect temperature anomalies, and logs alerts. It uses deques to efficiently store and manage recent temperature readings and checks for significant temperature drops in the smoker or stalls in the food temperatures. The script includes robust error handling to ensure reliable operation and provides real-time monitoring and alerting for temperature issues.
+
 
 ### Requirements:
 In your callback function, make sure you generate alerts - there will be a smoker alert and both Food A and Food B will stall. 
